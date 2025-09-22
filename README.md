@@ -10,35 +10,25 @@ It stores embeddings in **Pinecone** and uses **Sentence-Transformers (MPNet)** 
 ## 📦 Requirements
 
 - Python 3.10+  
-- Pip packages (install all together):
+- Pip packages (install all at once):
 
 ```bash
 pip install -r requirements.txt
 ````
 
-`requirements.txt` content:
-
-```
-google-generativeai
-pinecone-client>=2.2.0
-sentence-transformers
-pdfplumber
-python-dotenv
-```
-
 ---
 
 ## 🔑 Step 1: Gemini API Key
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+1. Go to [Google AI Studio Cloud Console](https://aistudio.google.com/app/apikey).
 2. Navigate to **AI & ML → Generative AI → Credentials → Create API Key**.
 3. Copy the API key.
 4. Directly configure it in the Python code (no `.env` needed):
 
 ```python
-import google.generativeai as genai
+Replace this with your api key 
 
-genai.configure(api_key="YOUR_GEMINI_API_KEY")
+genai.configure(api_key="ADD YOUR API KEY PLEASE REFER HOW TO SET UP IN THE README.MD FILE"
 ```
 
 ---
@@ -50,11 +40,11 @@ genai.configure(api_key="YOUR_GEMINI_API_KEY")
 3. Use your existing index or create a new one:
 
 ```python
-import pinecone
 
-pinecone_api_key = "YOUR_PINECONE_API_KEY"
-pc = pinecone.Pinecone(api_key=pinecone_api_key)
-index = pc.Index("rag768")  # Use your index name
+Replace this with your API KEY
+
+pinecone_api_key = "ADD YOUR API KEY PLEASE REFER HOW TO SET UP IN THE README.MD FILE"
+
 ```
 
 **Index configuration:**
@@ -63,6 +53,8 @@ index = pc.Index("rag768")  # Use your index name
 * Metric: cosine
 * Cloud: AWS
 * Region: us-east-1
+
+> ⚠️ Make sure the dimension of the Pinecone index matches the embedding size (768 for MPNet).
 
 ---
 
@@ -95,14 +87,7 @@ python main.py
 
 3. Start chatting:
 
-```text
-✅ RAG + Gemini Chat ready. Type 'exit' to quit.
-
-You: Benefits of OOP
-Gemini: OOP provides modularity, reusability, and maintainability...
-```
-
-4. Type `exit` to quit.
+4. Type `exit` to quit the chat.
 
 ---
 
@@ -112,15 +97,8 @@ Gemini: OOP provides modularity, reusability, and maintainability...
 2. **Embeddings**: Each chunk is converted to a 768-dim vector using `sentence-transformers/all-mpnet-base-v2`.
 3. **Pinecone**: Stores embeddings for retrieval.
 4. **RAG**: Top 3 relevant chunks are retrieved for a user question.
-5. **Gemini LLM**: Prompt is sent to `models/gemma-3-4b-it` (Gamma model) to generate answer.
+5. **Gemini LLM**: Prompt is sent to `models/gemma-3-4b-it` (Gamma model) to generate the answer.
 
----
-
-## ✅ Notes
-
-* No `.env` file is required; API keys can be configured directly in code.
-* Make sure your **Gemini API key** and **Pinecone API key** are valid.
-* Ensure your Pinecone index dimension matches embedding size (768).
 
 ---
 
